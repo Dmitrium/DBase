@@ -20,6 +20,8 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.ResourceBundle;
 
 import static sample.winfirst.Controller.conn;
@@ -265,19 +267,19 @@ String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getTe
         if(us.getMagistral()!=("")){
         fi = new File("\\\\pl7-bkp-03\\Общие отдела ДТ\\_РАБОТА\\"+us.getYear()+"\\_НД\\1. Проекты\\3. ПАО МОЭК, г. Москва\\4. Рабочие материалы\\3. Обработка данных\\Филиал №"+us.getFilial()+"\\Предприятие №"+us.getPredpr()+"\\Магистраль "+us.getMagistral());
         desk.open(fi);
-        System.out.println(fi.getAbsolutePath());} else {
+        } else {
             fi = new File("\\\\pl7-bkp-03\\Общие отдела ДТ\\_РАБОТА\\"+us.getYear()+"\\_НД\\1. Проекты\\3. ПАО МОЭК, г. Москва\\4. Рабочие материалы\\3. Обработка данных\\Филиал №"+us.getFilial()+"\\Предприятие №"+us.getPredpr());
             desk.open(fi);
-            System.out.println(fi.getAbsolutePath());
         }
     }
 
 
     @FXML
-    void find(ActionEvent event) {
+    void find(ActionEvent event) throws SQLException {
+
         data = FXCollections.observableArrayList();
         try {
-            rs = conn.createStatement().executeQuery("SELECT * FROM nd_database.table WHERE");
+            rs = conn.createStatement().executeQuery("SELECT * FROM nd_database.table");
             while (rs.next()) {
                 data.add(new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
                         rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getString(15), rs.getString(16)));
@@ -286,31 +288,72 @@ String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getTe
             System.out.println(e);
         }
 
-        table.setEditable(true);
+        if (!a11.getText().equals("")){
+            data.removeIf(x -> !x.getYear().equals(a11.getText()));}
+        if (!a21.getText().equals("")){
+            data.removeIf(x -> !x.getGUID().equals(a21.getText()));}
+        if (!a31.getText().equals("")){
+            data.removeIf(x -> !x.getFilial().equals(a31.getText()));}
+        if (!a41.getText().equals("")){
+            data.removeIf(x -> !x.getPredpr().equals(a41.getText()));}
+        if (!a51.getText().equals("")){
+            data.removeIf(x -> !x.getMagistral().equals(a51.getText()));}
+        if (!a61.getText().equals("")){
+            data.removeIf(x -> !x.getBegin().equals(a61.getText()));}
+        if (!a71.getText().equals("")){
+            data.removeIf(x -> !x.getEnd().equals(a71.getText()));}
+        if (!a81.getText().equals("")){
+            data.removeIf(x -> !x.getPoduchastok().equals(a81.getText()));}
+        if (!a91.getText().equals("")){
+            data.removeIf(x -> !x.getDiametr().equals(a91.getText()));}
+        if (!a101.getText().equals("")){
+            data.removeIf(x -> !x.getLength().equals(a101.getText()));}
+        if (!a111.getText().equals("")){
+            data.removeIf(x -> !x.getYearOFekspluat().equals(a111.getText()));}
+        if (!a121.getText().equals("")){
+            data.removeIf(x -> !x.getProkladka().equals(a121.getText()));}
+        if (!a131.getText().equals("")){
+            data.removeIf(x -> !x.getStatus().equals(a131.getText()));}
+        if (!a141.getText().equals("")){
+            data.removeIf(x -> !x.getPrimechanie().equals(a141.getText()));}
+        if (!a151.getText().equals("")){
+            data.removeIf(x -> !x.getDataSdachi().equals(a151.getText()));}
+        if (!a161.getText().equals("")){
+            data.removeIf(x -> !x.getOtvetLico().equals(a161.getText()));}
 
-        t1.setCellValueFactory(new PropertyValueFactory<>("year"));
-        t2.setCellValueFactory(new PropertyValueFactory<>("GUID"));
-        t3.setCellValueFactory(new PropertyValueFactory<>("filial"));
-        t4.setCellValueFactory(new PropertyValueFactory<>("predpr"));
-        t5.setCellValueFactory(new PropertyValueFactory<>("magistral"));
-        t6.setCellValueFactory(new PropertyValueFactory<>("begin"));
-        t7.setCellValueFactory(new PropertyValueFactory<>("end"));
-        t8.setCellValueFactory(new PropertyValueFactory<>("poduchastok"));
-        t9.setCellValueFactory(new PropertyValueFactory<>("diametr"));
-        t10.setCellValueFactory(new PropertyValueFactory<>("length"));
-        t11.setCellValueFactory(new PropertyValueFactory<>("yearOFekspluat"));
-        t12.setCellValueFactory(new PropertyValueFactory<>("prokladka"));
-        t13.setCellValueFactory(new PropertyValueFactory<>("status"));
-        t14.setCellValueFactory(new PropertyValueFactory<>("primechanie"));
-        t15.setCellValueFactory(new PropertyValueFactory<>("dataSdachi"));
-        t16.setCellValueFactory(new PropertyValueFactory<>("otvetLico"));
-        table.setItems(null);
-        table.setItems(data);
+            t1.setCellValueFactory(new PropertyValueFactory<>("year"));
+            t2.setCellValueFactory(new PropertyValueFactory<>("GUID"));
+            t3.setCellValueFactory(new PropertyValueFactory<>("filial"));
+            t4.setCellValueFactory(new PropertyValueFactory<>("predpr"));
+            t5.setCellValueFactory(new PropertyValueFactory<>("magistral"));
+            t6.setCellValueFactory(new PropertyValueFactory<>("begin"));
+            t7.setCellValueFactory(new PropertyValueFactory<>("end"));
+            t8.setCellValueFactory(new PropertyValueFactory<>("poduchastok"));
+            t9.setCellValueFactory(new PropertyValueFactory<>("diametr"));
+            t10.setCellValueFactory(new PropertyValueFactory<>("length"));
+            t11.setCellValueFactory(new PropertyValueFactory<>("yearOFekspluat"));
+            t12.setCellValueFactory(new PropertyValueFactory<>("prokladka"));
+            t13.setCellValueFactory(new PropertyValueFactory<>("status"));
+            t14.setCellValueFactory(new PropertyValueFactory<>("primechanie"));
+            t15.setCellValueFactory(new PropertyValueFactory<>("dataSdachi"));
+            t16.setCellValueFactory(new PropertyValueFactory<>("otvetLico"));
+            table.setItems(null);
+            table.setItems(data);
+
+
+
+
+
+
     }
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
      table.getSelectionModel().setCellSelectionEnabled(true);
      t1.setEditable(true);
     }
+
+
 }

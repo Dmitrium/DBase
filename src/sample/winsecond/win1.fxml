@@ -85,7 +85,7 @@
             <TextField fx:id="a141" alignment="CENTER" prefHeight="25.0" prefWidth="94.0" promptText="Примечание" />
             <TextField fx:id="a151" alignment="CENTER" prefHeight="25.0" prefWidth="75.0" promptText="Дата сдачи" />
             <TextField fx:id="a161" alignment="CENTER" prefHeight="25.0" prefWidth="107.0" promptText="Ответственное лицо" />
-            <Button fx:id="fnd" mnemonicParsing="false" onAction="#find" style="-fx-background-color: #333333; -fx-background-radius: 20;" text="Поиск" textFill="WHITE" />
+            <Button fx:id="fnd" mnemonicParsing="false" onAction="#find" style="-fx-background-color: #333333; -fx-background-radius: 20;" text="Фильтр" textFill="WHITE" />
          </items>
       </ToolBar>
    </children>
