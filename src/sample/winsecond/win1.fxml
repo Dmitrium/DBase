@@ -69,7 +69,7 @@
       </ToolBar>
       <ToolBar layoutX="53.0" layoutY="131.0" prefHeight="40.0" prefWidth="1326.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <items>
-            <TextField fx:id="a11" alignment="CENTER" prefHeight="25.0" prefWidth="38.0" promptText="Год" />
+            <TextField fx:id="aa11" alignment="CENTER" prefHeight="25.0" prefWidth="38.0" promptText="Год" />
             <TextField fx:id="a21" alignment="CENTER" prefHeight="25.0" prefWidth="111.0" promptText="GUID" />
             <TextField fx:id="a31" alignment="CENTER" prefHeight="25.0" prefWidth="43.0" promptText="Ф" />
             <TextField fx:id="a41" alignment="CENTER" prefHeight="25.0" prefWidth="39.0" promptText="П" />
