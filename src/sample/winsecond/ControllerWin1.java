@@ -11,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
+import javafx.util.converter.IntegerStringConverter;
+import javafx.util.converter.NumberStringConverter;
 import sample.winfirst.User;
 
 import java.awt.*;
@@ -234,24 +236,7 @@ String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getTe
             System.out.println(e);
         }
 
-        table.setEditable(true);
-
-        t1.setCellValueFactory(new PropertyValueFactory<>("year"));
-        t2.setCellValueFactory(new PropertyValueFactory<>("GUID"));
-        t3.setCellValueFactory(new PropertyValueFactory<>("filial"));
-        t4.setCellValueFactory(new PropertyValueFactory<>("predpr"));
-        t5.setCellValueFactory(new PropertyValueFactory<>("magistral"));
-        t6.setCellValueFactory(new PropertyValueFactory<>("begin"));
-        t7.setCellValueFactory(new PropertyValueFactory<>("end"));
-        t8.setCellValueFactory(new PropertyValueFactory<>("poduchastok"));
-        t9.setCellValueFactory(new PropertyValueFactory<>("diametr"));
-        t10.setCellValueFactory(new PropertyValueFactory<>("length"));
-        t11.setCellValueFactory(new PropertyValueFactory<>("yearOFekspluat"));
-        t12.setCellValueFactory(new PropertyValueFactory<>("prokladka"));
-        t13.setCellValueFactory(new PropertyValueFactory<>("status"));
-        t14.setCellValueFactory(new PropertyValueFactory<>("primechanie"));
-        t15.setCellValueFactory(new PropertyValueFactory<>("dataSdachi"));
-        t16.setCellValueFactory(new PropertyValueFactory<>("otvetLico"));
+        table();
         table.setItems(null);
         table.setItems(data);
     }
@@ -272,6 +257,8 @@ String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getTe
             desk.open(fi);
         }
     }
+
+
 
 
     @FXML
@@ -321,38 +308,39 @@ String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getTe
         if (!a161.getText().equals("")){
             data.removeIf(x -> !x.getOtvetLico().equals(a161.getText()));}
 
-            t1.setCellValueFactory(new PropertyValueFactory<>("year"));
-            t2.setCellValueFactory(new PropertyValueFactory<>("GUID"));
-            t3.setCellValueFactory(new PropertyValueFactory<>("filial"));
-            t4.setCellValueFactory(new PropertyValueFactory<>("predpr"));
-            t5.setCellValueFactory(new PropertyValueFactory<>("magistral"));
-            t6.setCellValueFactory(new PropertyValueFactory<>("begin"));
-            t7.setCellValueFactory(new PropertyValueFactory<>("end"));
-            t8.setCellValueFactory(new PropertyValueFactory<>("poduchastok"));
-            t9.setCellValueFactory(new PropertyValueFactory<>("diametr"));
-            t10.setCellValueFactory(new PropertyValueFactory<>("length"));
-            t11.setCellValueFactory(new PropertyValueFactory<>("yearOFekspluat"));
-            t12.setCellValueFactory(new PropertyValueFactory<>("prokladka"));
-            t13.setCellValueFactory(new PropertyValueFactory<>("status"));
-            t14.setCellValueFactory(new PropertyValueFactory<>("primechanie"));
-            t15.setCellValueFactory(new PropertyValueFactory<>("dataSdachi"));
-            t16.setCellValueFactory(new PropertyValueFactory<>("otvetLico"));
+
+         table();
             table.setItems(null);
             table.setItems(data);
-
-
-
-
-
-
+            table.setEditable(true);
     }
 
-
+    public void table(){
+        TableColumn[] tarray = new TableColumn[]{t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16};
+        for (int i=0; i<16; i++)
+            tarray[i].setCellFactory(TextFieldTableCell.forTableColumn());
+        t1.setCellValueFactory(new PropertyValueFactory<>("year"));
+        t2.setCellValueFactory(new PropertyValueFactory<>("GUID"));
+        t3.setCellValueFactory(new PropertyValueFactory<>("filial"));
+        t4.setCellValueFactory(new PropertyValueFactory<>("predpr"));
+        t5.setCellValueFactory(new PropertyValueFactory<>("magistral"));
+        t6.setCellValueFactory(new PropertyValueFactory<>("begin"));
+        t7.setCellValueFactory(new PropertyValueFactory<>("end"));
+        t8.setCellValueFactory(new PropertyValueFactory<>("poduchastok"));
+        t9.setCellValueFactory(new PropertyValueFactory<>("diametr"));
+        t10.setCellValueFactory(new PropertyValueFactory<>("length"));
+        t11.setCellValueFactory(new PropertyValueFactory<>("yearOFekspluat"));
+        t12.setCellValueFactory(new PropertyValueFactory<>("prokladka"));
+        t13.setCellValueFactory(new PropertyValueFactory<>("status"));
+        t14.setCellValueFactory(new PropertyValueFactory<>("primechanie"));
+        t15.setCellValueFactory(new PropertyValueFactory<>("dataSdachi"));
+        t16.setCellValueFactory(new PropertyValueFactory<>("otvetLico"));
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
      table.getSelectionModel().setCellSelectionEnabled(true);
-     t1.setEditable(true);
+     table.setEditable(true);
     }
 
 
