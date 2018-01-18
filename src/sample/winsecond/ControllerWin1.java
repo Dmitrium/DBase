@@ -3,6 +3,7 @@ package sample.winsecond;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.NumberStringConverter;
@@ -24,6 +26,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EventListener;
 import java.util.ResourceBundle;
 
 import static sample.winfirst.Controller.conn;
@@ -166,6 +169,9 @@ public class ControllerWin1 implements Initializable {
     private TextField a111;
 
     @FXML
+    private TextField aa11;
+
+    @FXML
     private TextField a121;
 
     @FXML
@@ -183,6 +189,57 @@ public class ControllerWin1 implements Initializable {
     @FXML
     private Button fnd;
 
+    @FXML
+    private TextField aaa111;
+
+    @FXML
+    private TextField a211;
+
+    @FXML
+    private TextField a311;
+
+    @FXML
+    private TextField a411;
+
+    @FXML
+    private TextField a511;
+
+    @FXML
+    private TextField a611;
+
+    @FXML
+    private TextField a711;
+
+    @FXML
+    private TextField a811;
+
+    @FXML
+    private TextField a911;
+
+    @FXML
+    private TextField a1011;
+
+    @FXML
+    private TextField a1111;
+
+    @FXML
+    private TextField a1211;
+
+    @FXML
+    private TextField a1311;
+
+    @FXML
+    private TextField a1411;
+
+    @FXML
+    private TextField a1511;
+
+    @FXML
+    private TextField a1611;
+
+    @FXML
+    private Button changebut;
+
     private ObservableList<User> data;
 
     private ResultSet rs;
@@ -190,6 +247,7 @@ public class ControllerWin1 implements Initializable {
     private Statement statement;
 
     static Desktop desk;
+
 
 
     @FXML
@@ -210,7 +268,26 @@ User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
        statement.close();
     }
 
-
+    @FXML
+    void change(ActionEvent event) {
+        User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
+        aaa111.setText(us.getYear());
+        a211.setText(us.getGUID());
+        a311.setText(us.getFilial());
+        a411.setText(us.getPredpr());
+        a511.setText(us.getMagistral());
+        a611.setText(us.getBegin());
+        a711.setText(us.getEnd());
+        a811.setText(us.getPoduchastok());
+        a911.setText(us.getDiametr());
+        a1011.setText(us.getLength());
+        a1111.setText(us.getYearOFekspluat());
+        a1211.setText(us.getProkladka());
+        a1311.setText(us.getStatus());
+        a1411.setText(us.getPrimechanie());
+        a1511.setText(us.getDataSdachi());
+        a1611.setText(us.getOtvetLico());
+    }
 
 
     @FXML
@@ -219,6 +296,8 @@ User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
 String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getText()+"','"+a3.getText()+"','"+a4.getText()+"','"+a5.getText()+"','"+a6.getText()+"','"+a7.getText()+"','"+a8.getText()+"','"+a9.getText()+"','"+a10.getText()+"','"+a11.getText()+"','"+a12.getText()+"','"+a13.getText()+"','"+a14.getText()+"','"+a15.getText()+"','"+a16.getText()+"');";
         statement.executeUpdate(ex);
     }
+
+
 
 
 
@@ -274,9 +353,8 @@ String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getTe
         }catch (SQLException e){
             System.out.println(e);
         }
-
-        if (!a11.getText().equals("")){
-            data.removeIf(x -> !x.getYear().equals(a11.getText()));}
+        if (!aa11.getText().equals("")){
+            data.removeIf(x -> !x.getYear().equals(aa11.getText()));}
         if (!a21.getText().equals("")){
             data.removeIf(x -> !x.getGUID().equals(a21.getText()));}
         if (!a31.getText().equals("")){
@@ -315,6 +393,9 @@ String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getTe
             table.setEditable(true);
     }
 
+
+
+
     public void table(){
         TableColumn[] tarray = new TableColumn[]{t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16};
         for (int i=0; i<16; i++)
@@ -339,6 +420,12 @@ String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getTe
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        table.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent t) {
+                System.out.println("click");
+            }}
+        );
      table.getSelectionModel().setCellSelectionEnabled(true);
      table.setEditable(true);
     }
