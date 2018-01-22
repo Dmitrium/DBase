@@ -27,15 +27,23 @@ public class Controller implements Initializable{
     public DBconnection dc;
     public static Connection conn;
 
+    @FXML
+    void minimize(MouseEvent event) {
+        ((Stage)(txtfield1.getScene().getWindow())).iconifiedProperty();
+    }
 
+    @FXML
+    void exit(MouseEvent event) {
+System.exit(0);
+    }
 
     @FXML
     void connect(MouseEvent event) throws Exception {
-        dc = new DBconnection(txtfield1.getText(),txtfield11.getText());
         try {
+            dc = new DBconnection(txtfield1.getText(),txtfield11.getText());
             conn = dc.Connect();
-        ((Stage) txtfield1.getScene().getWindow()).close();
-        new Window1();
+            ((Stage) txtfield1.getScene().getWindow()).close();
+            new Window1();
         } catch (Exception e){
             System.out.println("trubles");
         }

@@ -13,7 +13,7 @@ public class Window1 {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("win1.fxml"));
         Parent load = loader.load();
         Stage primaryStage = new Stage();
-       // primaryStage.initStyle(StageStyle.TRANSPARENT);
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         Scene scene = new Scene(load, 1390, 800);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);

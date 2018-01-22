@@ -16,15 +16,22 @@
       <AnchorPane layoutX="188.0" layoutY="96.0" prefHeight="243.0" prefWidth="267.0" style="-fx-background-color: #003D9F;">
          <children>
             <TextField fx:id="txtfield11" alignment="CENTER" layoutX="8.0" layoutY="59.0" prefHeight="25.0" prefWidth="249.0" />
-            <ImageView fx:id="connn" fitHeight="43.0" fitWidth="43.0" layoutX="115.0" layoutY="129.0" onMouseClicked="#connect">
-               <image>
-                  <Image url="@../icons/dataencryption_application_dedatos_3363.png" />
-               </image>
+            <PasswordField fx:id="txtfield1" alignment="CENTER" layoutX="8.0" layoutY="84.0" prefHeight="25.0" prefWidth="249.0" />
+            <AnchorPane layoutX="117.0" layoutY="122.0" onMouseClicked="#connect" prefHeight="32.0" prefWidth="32.0">
+               <children>
+                  <ImageView fx:id="connn" fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/icons8-принять-базу-данных-50.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-            </ImageView>
-            <PasswordField fx:id="txtfield1" alignment="CENTER" layoutX="8.0" layoutY="84.0" prefHeight="25.0" prefWidth="249.0" />
+            </AnchorPane>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="106.0" layoutY="96.0" prefHeight="243.0" prefWidth="76.0" style="-fx-background-color: #333333;">
@@ -54,7 +61,33 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="188.0" layoutY="14.0" prefHeight="76.0" prefWidth="267.0" style="-fx-background-color: #333333;" />
+      <AnchorPane layoutX="188.0" layoutY="14.0" prefHeight="76.0" prefWidth="267.0" style="-fx-background-color: #333333;">
+         <children>
+            <AnchorPane layoutX="243.0" layoutY="4.0" onMouseClicked="#exit" prefHeight="20.0" prefWidth="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="180.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/icons8-закрыть-окно-50.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="227.0" prefHeight="20.0" prefWidth="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="180.0" onMouseClicked="#minimize" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/icons8-свернуть-окно-50.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children></AnchorPane>
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />

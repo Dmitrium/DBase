@@ -237,9 +237,6 @@ public class ControllerWin1 implements Initializable {
     @FXML
     private TextField a1611;
 
-    @FXML
-    private Button changebut;
-
     private ObservableList<User> data;
 
     private ResultSet rs;
@@ -247,53 +244,42 @@ public class ControllerWin1 implements Initializable {
     private Statement statement;
 
     static Desktop desk;
-
+    static User forchange;
 
 
     @FXML
     void delete(ActionEvent event) throws SQLException {
 
 ObservableList<User> pr, all;
-TablePosition<User, String> tb;
 all = table.getItems();
 pr = table.getSelectionModel().getSelectedItems();
 statement = conn.createStatement();
 User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
-
-        String dl = "DELETE FROM nd_database.table WHERE Год= '"+us.getYear()+"' AND GUID = '"+us.getGUID()+"' AND Ф = '"+us.getFilial()+"' AND П = '"+us.getPredpr()+"' AND Маг = '"+us.getMagistral()+"' AND Начало = '"+us.getBegin()+"' AND Конец = '"+us.getEnd()+"' AND Подучастки = '"+us.getPoduchastok()+"' AND Диаметр = '"+us.getDiametr()+"' AND Длина = '"+
+        String dl = "DELETE FROM nd_database.table WHERE Год = '"+us.getYear()+"' AND GUID = '"+us.getGUID()+"' AND Ф = '"+us.getFilial()+"' AND П = '"+us.getPredpr()+"' AND Маг = '"+us.getMagistral()+"' AND Начало = '"+us.getBegin()+"' AND Конец = '"+us.getEnd()+"' AND Подучастки = '"+us.getPoduchastok()+"' AND Диаметр = '"+us.getDiametr()+"' AND Длина = '"+
                 us.getLength()+"' AND `Год ввода в эксплуатацию/перекладка` = '"+us.getYearOFekspluat()+"' AND Прокладка = '"+us.getProkladka()+"' AND Состояние = '"+us.getStatus()+"' AND Примечание = '"+us.getPrimechanie()+
                 "' AND `Дата сдачи` = '"+us.getDataSdachi()+"' AND `Ответственное лицо` = '"+us.getOtvetLico()+"';";
         statement.executeUpdate(dl);
-       pr.forEach(all::remove);
-       statement.close();
+        pr.forEach(all::remove);
+        statement.close();
     }
 
+
     @FXML
-    void change(ActionEvent event) {
-        User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
-        aaa111.setText(us.getYear());
-        a211.setText(us.getGUID());
-        a311.setText(us.getFilial());
-        a411.setText(us.getPredpr());
-        a511.setText(us.getMagistral());
-        a611.setText(us.getBegin());
-        a711.setText(us.getEnd());
-        a811.setText(us.getPoduchastok());
-        a911.setText(us.getDiametr());
-        a1011.setText(us.getLength());
-        a1111.setText(us.getYearOFekspluat());
-        a1211.setText(us.getProkladka());
-        a1311.setText(us.getStatus());
-        a1411.setText(us.getPrimechanie());
-        a1511.setText(us.getDataSdachi());
-        a1611.setText(us.getOtvetLico());
+    void change(ActionEvent event) throws SQLException {
+        statement = conn.createStatement();
+        String ch = "UPDATE nd_database.table SET Год = '"+aaa111.getText()+"', GUID = '"+a211.getText()+"', Ф = '"+a311.getText()+"', П = '"+a411.getText()+"', Маг = '"+a511.getText()+"', Начало = '"+a611.getText()+"', Конец = '"+a711.getText()+"', Подучастки = '"+a811.getText()+"', Диаметр = '"+a911.getText()+"', Длина = '"+
+                a1011.getText()+"', `Год ввода в эксплуатацию/перекладка` = '"+a1111.getText()+"', Прокладка = '"+a1211.getText()+"', Состояние = '"+a1311.getText()+"', Примечание = '"+a1411.getText()+
+                "', `Дата сдачи` = '"+a1511.getText()+"', `Ответственное лицо` = '"+a1611.getText()+"' WHERE Год = '"+forchange.getYear()+"' AND GUID = '"+forchange.getGUID()+"' AND Ф = '"+forchange.getFilial()+"' AND П = '"+forchange.getPredpr()+"' AND Маг = '"+forchange.getMagistral()+"' AND Начало = '"+forchange.getBegin()+"' AND Конец = '"+forchange.getEnd()+"' AND Подучастки = '"+forchange.getPoduchastok()+"' AND Диаметр = '"+forchange.getDiametr()+"' AND Длина = '"+
+                forchange.getLength()+"' AND `Год ввода в эксплуатацию/перекладка` = '"+forchange.getYearOFekspluat()+"' AND Прокладка = '"+forchange.getProkladka()+"' AND Состояние = '"+forchange.getStatus()+"' AND Примечание = '"+forchange.getPrimechanie()+
+                "' AND `Дата сдачи` = '"+forchange.getDataSdachi()+"' AND `Ответственное лицо` = '"+forchange.getOtvetLico()+"';";
+        statement.executeUpdate(ch);
     }
 
 
     @FXML
     void add(ActionEvent event) throws SQLException {
         statement = conn.createStatement();
-String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getText()+"','"+a3.getText()+"','"+a4.getText()+"','"+a5.getText()+"','"+a6.getText()+"','"+a7.getText()+"','"+a8.getText()+"','"+a9.getText()+"','"+a10.getText()+"','"+a11.getText()+"','"+a12.getText()+"','"+a13.getText()+"','"+a14.getText()+"','"+a15.getText()+"','"+a16.getText()+"');";
+        String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getText()+"','"+a3.getText()+"','"+a4.getText()+"','"+a5.getText()+"','"+a6.getText()+"','"+a7.getText()+"','"+a8.getText()+"','"+a9.getText()+"','"+a10.getText()+"','"+a11.getText()+"','"+a12.getText()+"','"+a13.getText()+"','"+a14.getText()+"','"+a15.getText()+"','"+a16.getText()+"');";
         statement.executeUpdate(ex);
     }
 
@@ -314,8 +300,7 @@ String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getTe
         }catch (SQLException e){
             System.out.println(e);
         }
-
-        table();
+         table();
         table.setItems(null);
         table.setItems(data);
     }
@@ -385,8 +370,6 @@ String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getTe
             data.removeIf(x -> !x.getDataSdachi().equals(a151.getText()));}
         if (!a161.getText().equals("")){
             data.removeIf(x -> !x.getOtvetLico().equals(a161.getText()));}
-
-
          table();
             table.setItems(null);
             table.setItems(data);
@@ -423,11 +406,27 @@ String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getTe
         table.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent t) {
-                System.out.println("click");
+                try{
+                forchange = table.getItems().get(table.getSelectionModel().getSelectedIndex());
+                aaa111.setText(forchange.getYear());
+                a211.setText(forchange.getGUID());
+                a311.setText(forchange.getFilial());
+                a411.setText(forchange.getPredpr());
+                a511.setText(forchange.getMagistral());
+                a611.setText(forchange.getBegin());
+                a711.setText(forchange.getEnd());
+                a811.setText(forchange.getPoduchastok());
+                a911.setText(forchange.getDiametr());
+                a1011.setText(forchange.getLength());
+                a1111.setText(forchange.getYearOFekspluat());
+                a1211.setText(forchange.getProkladka());
+                a1311.setText(forchange.getStatus());
+                a1411.setText(forchange.getPrimechanie());
+                a1511.setText(forchange.getDataSdachi());
+                a1611.setText(forchange.getOtvetLico());} catch (Exception e) {}
             }}
         );
      table.getSelectionModel().setCellSelectionEnabled(true);
-     table.setEditable(true);
     }
 
 

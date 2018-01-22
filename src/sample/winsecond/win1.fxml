@@ -48,62 +48,62 @@
       </ToolBar>
       <ToolBar layoutY="241.0" prefHeight="40.0" prefWidth="207.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="241.0">
          <items>
-            <TextField fx:id="a1" alignment="CENTER" prefHeight="25.0" prefWidth="38.0" promptText="Год" />
-            <TextField fx:id="a2" alignment="CENTER" prefHeight="25.0" prefWidth="111.0" promptText="GUID" />
-            <TextField fx:id="a3" alignment="CENTER" prefHeight="25.0" prefWidth="43.0" promptText="Ф" />
-            <TextField fx:id="a4" alignment="CENTER" prefHeight="25.0" prefWidth="39.0" promptText="П" />
-            <TextField fx:id="a5" alignment="CENTER" prefHeight="25.0" prefWidth="50.0" promptText="Маг" />
-            <TextField fx:id="a6" alignment="CENTER" prefHeight="25.0" prefWidth="82.0" promptText="Начало" />
-            <TextField fx:id="a7" alignment="CENTER" prefHeight="25.0" prefWidth="84.0" promptText="Конец" />
-            <TextField fx:id="a8" alignment="CENTER" prefHeight="25.0" prefWidth="137.0" promptText="Подучастки" />
-            <TextField fx:id="a9" alignment="CENTER" prefHeight="25.0" prefWidth="72.0" promptText="Диаметр" />
-            <TextField fx:id="a10" alignment="CENTER" prefHeight="25.0" prefWidth="64.0" promptText="Длина" />
-            <TextField fx:id="a11" alignment="CENTER" prefHeight="25.0" prefWidth="95.0" promptText="Год ввода в экспл" />
-            <TextField fx:id="a12" alignment="CENTER" prefHeight="25.0" prefWidth="75.0" promptText="Прокладка" />
-            <TextField fx:id="a13" alignment="CENTER" prefHeight="25.0" prefWidth="71.0" promptText="Состояние" />
-            <TextField fx:id="a14" alignment="CENTER" prefHeight="25.0" prefWidth="94.0" promptText="Примечание" />
-            <TextField fx:id="a15" alignment="CENTER" prefHeight="25.0" prefWidth="75.0" promptText="Дата сдачи" />
-            <TextField fx:id="a16" alignment="CENTER" prefHeight="25.0" prefWidth="107.0" promptText="Ответственное лицо" />
+            <TextField fx:id="a1" prefHeight="25.0" prefWidth="38.0" promptText="Год" />
+            <TextField fx:id="a2" prefHeight="25.0" prefWidth="111.0" promptText="GUID" />
+            <TextField fx:id="a3" prefHeight="25.0" prefWidth="43.0" promptText="Ф" />
+            <TextField fx:id="a4" prefHeight="25.0" prefWidth="39.0" promptText="П" />
+            <TextField fx:id="a5" prefHeight="25.0" prefWidth="50.0" promptText="Маг" />
+            <TextField fx:id="a6" prefHeight="25.0" prefWidth="82.0" promptText="Начало" />
+            <TextField fx:id="a7" prefHeight="25.0" prefWidth="84.0" promptText="Конец" />
+            <TextField fx:id="a8" prefHeight="25.0" prefWidth="137.0" promptText="Подучастки" />
+            <TextField fx:id="a9" prefHeight="25.0" prefWidth="72.0" promptText="Диаметр" />
+            <TextField fx:id="a10" prefHeight="25.0" prefWidth="64.0" promptText="Длина" />
+            <TextField fx:id="a11" prefHeight="25.0" prefWidth="95.0" promptText="Год ввода в экспл" />
+            <TextField fx:id="a12" prefHeight="25.0" prefWidth="75.0" promptText="Прокладка" />
+            <TextField fx:id="a13" prefHeight="25.0" prefWidth="71.0" promptText="Состояние" />
+            <TextField fx:id="a14" prefHeight="25.0" prefWidth="94.0" promptText="Примечание" />
+            <TextField fx:id="a15" prefHeight="25.0" prefWidth="75.0" promptText="Дата сдачи" />
+            <TextField fx:id="a16" prefHeight="25.0" prefWidth="107.0" promptText="Ответственное лицо" />
             <Button fx:id="addbut" mnemonicParsing="false" onAction="#add" style="-fx-background-color: #333333; -fx-background-radius: 20;" text="Добавить" textFill="WHITE" />
          </items>
       </ToolBar>
       <ToolBar layoutY="201.0" prefHeight="40.0" prefWidth="1326.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <items>
-            <TextField fx:id="aa11" alignment="CENTER" prefHeight="25.0" prefWidth="38.0" promptText="Год" />
-            <TextField fx:id="a21" alignment="CENTER" prefHeight="25.0" prefWidth="111.0" promptText="GUID" />
-            <TextField fx:id="a31" alignment="CENTER" prefHeight="25.0" prefWidth="43.0" promptText="Ф" />
-            <TextField fx:id="a41" alignment="CENTER" prefHeight="25.0" prefWidth="39.0" promptText="П" />
-            <TextField fx:id="a51" alignment="CENTER" prefHeight="25.0" prefWidth="50.0" promptText="Маг" />
-            <TextField fx:id="a61" alignment="CENTER" prefHeight="25.0" prefWidth="82.0" promptText="Начало" />
-            <TextField fx:id="a71" alignment="CENTER" prefHeight="25.0" prefWidth="84.0" promptText="Конец" />
-            <TextField fx:id="a81" alignment="CENTER" prefHeight="25.0" prefWidth="137.0" promptText="Подучастки" />
-            <TextField fx:id="a91" alignment="CENTER" prefHeight="25.0" prefWidth="72.0" promptText="Диаметр" />
-            <TextField fx:id="a101" alignment="CENTER" prefHeight="25.0" prefWidth="64.0" promptText="Длина" />
-            <TextField fx:id="a111" alignment="CENTER" prefHeight="25.0" prefWidth="95.0" promptText="Год ввода в экспл" />
-            <TextField fx:id="a121" alignment="CENTER" prefHeight="25.0" prefWidth="75.0" promptText="Прокладка" />
-            <TextField fx:id="a131" alignment="CENTER" prefHeight="25.0" prefWidth="71.0" promptText="Состояние" />
-            <TextField fx:id="a141" alignment="CENTER" prefHeight="25.0" prefWidth="94.0" promptText="Примечание" />
-            <TextField fx:id="a151" alignment="CENTER" prefHeight="25.0" prefWidth="75.0" promptText="Дата сдачи" />
-            <TextField fx:id="a161" alignment="CENTER" prefHeight="25.0" prefWidth="107.0" promptText="Ответственное лицо" />
+            <TextField fx:id="aa11" prefHeight="25.0" prefWidth="38.0" promptText="Год" />
+            <TextField fx:id="a21" prefHeight="25.0" prefWidth="111.0" promptText="GUID" />
+            <TextField fx:id="a31" prefHeight="25.0" prefWidth="43.0" promptText="Ф" />
+            <TextField fx:id="a41" prefHeight="25.0" prefWidth="39.0" promptText="П" />
+            <TextField fx:id="a51" prefHeight="25.0" prefWidth="50.0" promptText="Маг" />
+            <TextField fx:id="a61" prefHeight="25.0" prefWidth="82.0" promptText="Начало" />
+            <TextField fx:id="a71" prefHeight="25.0" prefWidth="84.0" promptText="Конец" />
+            <TextField fx:id="a81" prefHeight="25.0" prefWidth="137.0" promptText="Подучастки" />
+            <TextField fx:id="a91" prefHeight="25.0" prefWidth="72.0" promptText="Диаметр" />
+            <TextField fx:id="a101" prefHeight="25.0" prefWidth="64.0" promptText="Длина" />
+            <TextField fx:id="a111" prefHeight="25.0" prefWidth="95.0" promptText="Год ввода в экспл" />
+            <TextField fx:id="a121" prefHeight="25.0" prefWidth="75.0" promptText="Прокладка" />
+            <TextField fx:id="a131" prefHeight="25.0" prefWidth="71.0" promptText="Состояние" />
+            <TextField fx:id="a141" prefHeight="25.0" prefWidth="94.0" promptText="Примечание" />
+            <TextField fx:id="a151" prefHeight="25.0" prefWidth="75.0" promptText="Дата сдачи" />
+            <TextField fx:id="a161" prefHeight="25.0" prefWidth="107.0" promptText="Ответственное лицо" />
             <Button fx:id="fnd" mnemonicParsing="false" onAction="#find" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #333333; -fx-background-radius: 20;" text="Фильтр" textFill="WHITE" />
          </items>
       </ToolBar>
       <ToolBar layoutY="161.0" prefHeight="40.0" prefWidth="1379.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <items>
-            <TextField fx:id="aaa111" alignment="CENTER" prefHeight="25.0" prefWidth="38.0" promptText="Год" />
-            <TextField fx:id="a211" alignment="CENTER" prefHeight="25.0" prefWidth="111.0" promptText="GUID" />
-            <TextField fx:id="a311" alignment="CENTER" prefHeight="25.0" prefWidth="43.0" promptText="Ф" />
-            <TextField fx:id="a411" alignment="CENTER" prefHeight="25.0" prefWidth="39.0" promptText="П" />
-            <TextField fx:id="a511" alignment="CENTER" prefHeight="25.0" prefWidth="50.0" promptText="Маг" />
-            <TextField fx:id="a611" alignment="CENTER" prefHeight="25.0" prefWidth="82.0" promptText="Начало" />
-            <TextField fx:id="a711" alignment="CENTER" prefHeight="25.0" prefWidth="84.0" promptText="Конец" />
-            <TextField fx:id="a811" alignment="CENTER" prefHeight="25.0" prefWidth="137.0" promptText="Подучастки" />
-            <TextField fx:id="a911" alignment="CENTER" prefHeight="25.0" prefWidth="72.0" promptText="Диаметр" />
-            <TextField fx:id="a1011" alignment="CENTER" prefHeight="25.0" prefWidth="64.0" promptText="Длина" />
-            <TextField fx:id="a1111" alignment="CENTER" prefHeight="25.0" prefWidth="95.0" promptText="Год ввода в экспл" />
-            <TextField fx:id="a1211" alignment="CENTER" prefHeight="25.0" prefWidth="75.0" promptText="Прокладка" />
-            <TextField fx:id="a1311" alignment="CENTER" prefHeight="25.0" prefWidth="71.0" promptText="Состояние" />
-            <TextField fx:id="a1411" alignment="CENTER" prefHeight="25.0" prefWidth="94.0" promptText="Примечание" />
+            <TextField fx:id="aaa111" prefHeight="25.0" prefWidth="38.0" promptText="Год" />
+            <TextField fx:id="a211" prefHeight="25.0" prefWidth="111.0" promptText="GUID" />
+            <TextField fx:id="a311" prefHeight="25.0" prefWidth="43.0" promptText="Ф" />
+            <TextField fx:id="a411" prefHeight="25.0" prefWidth="39.0" promptText="П" />
+            <TextField fx:id="a511" prefHeight="25.0" prefWidth="50.0" promptText="Маг" />
+            <TextField fx:id="a611" prefHeight="25.0" prefWidth="82.0" promptText="Начало" />
+            <TextField fx:id="a711" prefHeight="25.0" prefWidth="84.0" promptText="Конец" />
+            <TextField fx:id="a811" prefHeight="25.0" prefWidth="137.0" promptText="Подучастки" />
+            <TextField fx:id="a911" prefHeight="25.0" prefWidth="72.0" promptText="Диаметр" />
+            <TextField fx:id="a1011" prefHeight="25.0" prefWidth="64.0" promptText="Длина" />
+            <TextField fx:id="a1111" prefHeight="25.0" prefWidth="95.0" promptText="Год ввода в экспл" />
+            <TextField fx:id="a1211" prefHeight="25.0" prefWidth="75.0" promptText="Прокладка" />
+            <TextField fx:id="a1311" prefHeight="25.0" prefWidth="71.0" promptText="Состояние" />
+            <TextField fx:id="a1411" prefHeight="25.0" prefWidth="94.0" promptText="Примечание" />
             <TextField fx:id="a1511" alignment="CENTER" prefHeight="25.0" prefWidth="75.0" promptText="Дата сдачи" />
             <TextField fx:id="a1611" alignment="CENTER" prefHeight="25.0" prefWidth="107.0" promptText="Ответственное лицо" />
             <Button fx:id="changebut" mnemonicParsing="false" onAction="#change" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: #333333; -fx-background-radius: 20;" text="Изменить" textFill="WHITE" />
