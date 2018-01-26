@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="379.0" prefWidth="560.0" stylesheets="@st.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.winfirst.Controller">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="379.0" prefWidth="560.0" stylesheets="@CSSs/st.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.winfirst.Controller">
    <children>
       <AnchorPane layoutX="188.0" layoutY="96.0" prefHeight="243.0" prefWidth="267.0" style="-fx-background-color: #003D9F;">
          <children>
@@ -21,7 +21,7 @@
                <children>
                   <ImageView fx:id="connn" fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/icons8-принять-базу-данных-50.png" />
+                        <Image url="@icons/icons8-принять-базу-данных-50.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -67,7 +67,7 @@
                <children>
                   <ImageView fx:id="exit" fitHeight="20.0" fitWidth="20.0" layoutX="180.0" onMouseClicked="#exit" onMouseEntered="#zoomedUP" onMouseExited="#zoomedDOWN" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/icons8-закрыть-окно-50.png" />
+                        <Image url="@icons/icons8-закрыть-окно-50.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -79,7 +79,7 @@
                <children>
                   <ImageView fx:id="minimize" fitHeight="20.0" fitWidth="20.0" layoutX="180.0" onMouseClicked="#minimize" onMouseEntered="#zoomedUPm" onMouseExited="#zoomedDOWNm" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/icons8-свернуть-окно-50.png" />
+                        <Image url="@icons/icons8-свернуть-окно-50.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />

@@ -11,7 +11,7 @@ import javafx.stage.StageStyle;
 public class Window1 {
 
     public Window1() throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("win1.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/win1.fxml"));
         Parent load = loader.load();
         Stage primaryStage = new Stage();
         primaryStage.initStyle(StageStyle.TRANSPARENT);

@@ -116,7 +116,7 @@
          <children>
             <ImageView fx:id="minimize" fitHeight="20.0" fitWidth="20.0" layoutX="525.0" onMouseClicked="#minimize" onMouseEntered="#zoomedUPm" onMouseExited="#zoomedDOWNm" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="0.0">
                <image>
-                  <Image url="@../icons/icons8-свернуть-окно-50.png" />
+                  <Image url="@icons/icons8-свернуть-окно-50.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -124,7 +124,7 @@
             </ImageView>
             <ImageView fx:id="exit" fitHeight="20.0" fitWidth="20.0" layoutX="1018.0" onMouseClicked="#exit" onMouseEntered="#zoomedUP" onMouseExited="#zoomedDOWN" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
-                  <Image url="@../icons/icons8-закрыть-окно-50.png" />
+                  <Image url="@icons/icons8-закрыть-окно-50.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -132,7 +132,7 @@
             </ImageView>
             <ImageView fx:id="maxWind" fitHeight="20.0" fitWidth="20.0" layoutX="1373.0" onMouseClicked="#zoom" onMouseEntered="#zoomedUPz" onMouseExited="#zoomedDOWNz" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
                <image>
-                  <Image url="@../icons/icons8-полный-экран-50.png" />
+                  <Image url="@icons/icons8-полный-экран-50.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
