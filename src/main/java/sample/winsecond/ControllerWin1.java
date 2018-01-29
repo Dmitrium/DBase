@@ -7,7 +7,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -15,26 +14,17 @@ import javafx.scene.image.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import javafx.util.converter.IntegerStringConverter;
-import javafx.util.converter.NumberStringConverter;
 import sample.winfirst.User;
-
 import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.EventListener;
 import java.util.ResourceBundle;
-
 import static sample.winfirst.Controller.conn;
 
 public class ControllerWin1 implements Initializable {
-
 
     @FXML
     private TableView<User> table;
@@ -135,14 +125,6 @@ public class ControllerWin1 implements Initializable {
 
     @FXML
     private ImageView exit;
-    @FXML
-    private Button btn;
-
-    @FXML
-    private Button butop;
-
-    @FXML
-    private Button addbut;
 
     @FXML
     private TextField a21;
@@ -191,9 +173,6 @@ public class ControllerWin1 implements Initializable {
 
     @FXML
     private TextField a161;
-
-    @FXML
-    private Button fnd;
 
     @FXML
     private TextField aaa111;
@@ -319,7 +298,7 @@ User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
     void opendir(ActionEvent event) throws SQLException, IOException {          //открытие папки
         statement = conn.createStatement();
         User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
-        File fi = null;
+        File fi;
         desk = Desktop.getDesktop();
         if(us.getMagistral()!=("")){
         fi = new File("\\\\pl7-bkp-03\\Общие отдела ДТ\\_РАБОТА\\"+us.getYear()+"\\_НД\\1. Проекты\\3. ПАО МОЭК, г. Москва\\4. Рабочие материалы\\3. Обработка данных\\Филиал №"+us.getFilial()+"\\Предприятие №"+us.getPredpr()+"\\Магистраль "+us.getMagistral());
@@ -370,17 +349,13 @@ User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
     @FXML
     void zoom(MouseEvent event) throws IOException {
         if(!t){
-            FileInputStream f = new FileInputStream("src/sample/icons/icons8-нормальный-экран-50.png");
-            maxWind.setImage(new Image(f));
+            maxWind.setImage(new Image("/icons/icons8-нормальный-экран-50.png"));
             ((Stage)(table.getScene().getWindow())).setMaximized(true);
         t=true;
-        f.close();
         } else {
-            FileInputStream f = new FileInputStream("src/sample/icons/icons8-полный-экран-50.png");
             ((Stage)(table.getScene().getWindow())).setMaximized(false);
-            maxWind.setImage(new Image(f));
+            maxWind.setImage(new Image("/icons/icons8-полный-экран-50.png"));
         t=false;
-        f.close();
         }
     }
 
