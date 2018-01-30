@@ -1,31 +1,33 @@
 package sample.winfirst;
 
-import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-import sample.winsecond.Window1;
+import sample.winsecond.SecondWindow;
+
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable{
+
+// контроллер для окна авторизации
+
+
+public class FirstWindowController implements Initializable{
 
     @FXML
     private ImageView exit;
     @FXML
     private ImageView minimize;
-    @FXML
-    private TextField txtfield;
     @FXML
     private PasswordField txtfield1;
     @FXML
@@ -36,7 +38,7 @@ public class Controller implements Initializable{
     public static Connection conn;
 
     @FXML
-    void minimize(MouseEvent event) {
+    void minimize(MouseEvent event) {         //свернуть окно
         ((Stage)(txtfield1.getScene().getWindow())).setIconified(true);
     }
     @FXML
@@ -70,29 +72,22 @@ public class Controller implements Initializable{
         connn.setFitWidth(32);
     }
     @FXML
-    void exit(MouseEvent event) {
+    void exit(MouseEvent event) {            //закрыть окно
 System.exit(0);
     }
-
     @FXML
-    void connect(MouseEvent event) throws Exception {
-        boolean isConnect = false;
+    void connect(MouseEvent event) {             //кнопка подключения к БД
         try {
             dc = new DBconnection(txtfield11.getText(),txtfield1.getText());
             conn = dc.Connect();
-            isConnect=true;
-        } catch (Exception e){
-            System.out.println(e);}
-            if (isConnect){
                 ((Stage) txtfield1.getScene().getWindow()).close();
-                new Window1();
-            }
-
-
-
+                    new SecondWindow();
+                } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Content here", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.show();
+                }
     }
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

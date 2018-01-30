@@ -3,10 +3,9 @@ package sample.winfirst;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-/**
- * Created by d.zharenkov on 27.12.2017.
- */
-public class User {
+//класс-сущность базы данных
+
+public class DBentity {
     private final StringProperty year;
     private final StringProperty GUID;
     private final StringProperty filial;
@@ -26,7 +25,7 @@ public class User {
 
 
 
-    public User(String year, String GUID, String filial, String predpr, String magistral, String begin, String end, String poduchastok, String diametr, String length, String yearOFekspluat, String prokladka, String status, String primechanie, String dataSdachi, String otvetLico){
+    public DBentity(String year, String GUID, String filial, String predpr, String magistral, String begin, String end, String poduchastok, String diametr, String length, String yearOFekspluat, String prokladka, String status, String primechanie, String dataSdachi, String otvetLico){
 
         this.year = new SimpleStringProperty(year);
         this.GUID = new SimpleStringProperty(GUID);

@@ -7,71 +7,74 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import sample.winfirst.User;
+import sample.winfirst.DBentity;
 import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-import static sample.winfirst.Controller.conn;
+import static sample.winfirst.FirstWindowController.conn;
 
-public class ControllerWin1 implements Initializable {
-
-    @FXML
-    private TableView<User> table;
-    @FXML
-    private TableColumn<User, String> t1;
-    @FXML
-    private TableColumn<User, String> t2;
-    @FXML
-    private TableColumn<User, String> t3;
-    @FXML
-    private TableColumn<User, String> t4;
+public class SecondWindowController implements Initializable {
 
     @FXML
-    private TableColumn<User, String> t5;
+    private TableView<DBentity> table;
+    @FXML
+    private TableColumn<DBentity, String> t1;
+    @FXML
+    private TableColumn<DBentity, String> t2;
+    @FXML
+    private TableColumn<DBentity, String> t3;
+    @FXML
+    private TableColumn<DBentity, String> t4;
 
     @FXML
-    private TableColumn<User, String> t6;
+    private TableColumn<DBentity, String> t5;
 
     @FXML
-    private TableColumn<User, String> t7;
+    private TableColumn<DBentity, String> t6;
 
     @FXML
-    private TableColumn<User, String> t8;
+    private TableColumn<DBentity, String> t7;
 
     @FXML
-    private TableColumn<User, String> t9;
+    private TableColumn<DBentity, String> t8;
 
     @FXML
-    private TableColumn<User, String> t10;
+    private TableColumn<DBentity, String> t9;
 
     @FXML
-    private TableColumn<User, String> t11;
+    private TableColumn<DBentity, String> t10;
 
     @FXML
-    private TableColumn<User, String> t12;
+    private TableColumn<DBentity, String> t11;
 
     @FXML
-    private TableColumn<User, String> t13;
+    private TableColumn<DBentity, String> t12;
 
     @FXML
-    private TableColumn<User, String> t14;
+    private TableColumn<DBentity, String> t13;
 
     @FXML
-    private TableColumn<User, String> t15;
+    private TableColumn<DBentity, String> t14;
 
     @FXML
-    private TableColumn<User, String> t16;
+    private TableColumn<DBentity, String> t15;
+
+    @FXML
+    private TableColumn<DBentity, String> t16;
 
     @FXML
     private TextField a1;
@@ -221,27 +224,58 @@ public class ControllerWin1 implements Initializable {
 
     @FXML
     private TextField a1611;
+
     @FXML
     private ImageView maxWind;
 
-    private ObservableList<User> data;
+    @FXML
+    private TextArea textfieldGUID;
 
+    @FXML
+    private AnchorPane blackPane;
+
+    private ObservableList<DBentity> data;
     private ResultSet rs;
-
     private Statement statement;
-
     static Desktop desk;
-    static User forchange;
+    static DBentity forchange;
     static boolean t = false;
 
     @FXML
-    void delete(ActionEvent event) throws SQLException {
-
-ObservableList<User> pr, all;
+    void moved(MouseEvent event) {
+        double pX = event.getX();
+        double pY = event.getY();
+        System.out.println(pX +" "+pY);
+    }
+    @FXML
+    void move(MouseEvent event) {
+double pX = event.getX();
+double pY = event.getY();
+    }
+    @FXML
+    void buttonGUID(ActionEvent event) throws SQLException {          //Поиск по GUID
+ObservableList<CharSequence> str = textfieldGUID.getParagraphs();
+        data = FXCollections.observableArrayList();
+        statement = conn.createStatement();
+        for (CharSequence s: str) {
+            System.out.println(s);
+            rs = conn.createStatement().executeQuery("SELECT * FROM nd_database.table WHERE GUID='"+s.toString()+"'");
+            while (rs.next()) {
+                data.add(new DBentity(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getString(15), rs.getString(16)));
+            }
+        table();
+        table.setItems(null);
+        table.setItems(data);
+        }
+    }
+    @FXML
+    void delete(ActionEvent event) throws SQLException {     //кнопка удалить запись
+ObservableList<DBentity> pr, all;
 all = table.getItems();
 pr = table.getSelectionModel().getSelectedItems();
 statement = conn.createStatement();
-User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
+DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
         String dl = "DELETE FROM nd_database.table WHERE Год = '"+us.getYear()+"' AND GUID = '"+us.getGUID()+"' AND Ф = '"+us.getFilial()+"' AND П = '"+us.getPredpr()+"' AND Маг = '"+us.getMagistral()+"' AND Начало = '"+us.getBegin()+"' AND Конец = '"+us.getEnd()+"' AND Подучастки = '"+us.getPoduchastok()+"' AND Диаметр = '"+us.getDiametr()+"' AND Длина = '"+
                 us.getLength()+"' AND `Год ввода в эксплуатацию/перекладка` = '"+us.getYearOFekspluat()+"' AND Прокладка = '"+us.getProkladka()+"' AND Состояние = '"+us.getStatus()+"' AND Примечание = '"+us.getPrimechanie()+
                 "' AND `Дата сдачи` = '"+us.getDataSdachi()+"' AND `Ответственное лицо` = '"+us.getOtvetLico()+"';";
@@ -250,9 +284,8 @@ User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
         statement.close();
     }
 
-
     @FXML
-    void change(ActionEvent event) throws SQLException {
+    void change(ActionEvent event) throws SQLException {     //кнопка изменить запись
         statement = conn.createStatement();
         String ch = "UPDATE nd_database.table SET Год = '"+aaa111.getText()+"', GUID = '"+a211.getText()+"', Ф = '"+a311.getText()+"', П = '"+a411.getText()+"', Маг = '"+a511.getText()+"', Начало = '"+a611.getText()+"', Конец = '"+a711.getText()+"', Подучастки = '"+a811.getText()+"', Диаметр = '"+a911.getText()+"', Длина = '"+
                 a1011.getText()+"', `Год ввода в эксплуатацию/перекладка` = '"+a1111.getText()+"', Прокладка = '"+a1211.getText()+"', Состояние = '"+a1311.getText()+"', Примечание = '"+a1411.getText()+
@@ -262,26 +295,20 @@ User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
         statement.executeUpdate(ch);
     }
 
-
     @FXML
-    void add(ActionEvent event) throws SQLException {
+    void add(ActionEvent event) throws SQLException {     //кнопка добавления записи
         statement = conn.createStatement();
         String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getText()+"','"+a3.getText()+"','"+a4.getText()+"','"+a5.getText()+"','"+a6.getText()+"','"+a7.getText()+"','"+a8.getText()+"','"+a9.getText()+"','"+a10.getText()+"','"+a11.getText()+"','"+a12.getText()+"','"+a13.getText()+"','"+a14.getText()+"','"+a15.getText()+"','"+a16.getText()+"');";
         statement.executeUpdate(ex);
     }
 
-
-
-
-
-
     @FXML
-    void press(ActionEvent event) throws SQLException {
+    void press(ActionEvent event) throws SQLException {            //кнопка вывести всю базу данных
             data = FXCollections.observableArrayList();
             try {
             rs = conn.createStatement().executeQuery("SELECT * FROM nd_database.table");
             while (rs.next()) {
-                data.add(new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
+                data.add(new DBentity(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
                         rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getString(15), rs.getString(16)));
             }
         }catch (SQLException e){
@@ -297,7 +324,7 @@ User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
     @FXML
     void opendir(ActionEvent event) throws SQLException, IOException {          //открытие папки
         statement = conn.createStatement();
-        User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
+        DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
         File fi;
         desk = Desktop.getDesktop();
         if(us.getMagistral()!=("")){
@@ -309,7 +336,7 @@ User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
         }
     }
     @FXML
-    void minimize(MouseEvent event) {
+    void minimize(MouseEvent event) {      //свернуть окно
         ((Stage)(table.getScene().getWindow())).setIconified(true);
     }
     @FXML
@@ -343,11 +370,11 @@ User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
         maxWind.setFitWidth(20);
     }
     @FXML
-    void exit(MouseEvent event) {
+    void exit(MouseEvent event) {   //закрытие окна
         System.exit(0);
     }
     @FXML
-    void zoom(MouseEvent event) throws IOException {
+    void zoom(MouseEvent event) throws IOException {      //изменение размера окна
         if(!t){
             maxWind.setImage(new Image("/icons/icons8-нормальный-экран-50.png"));
             ((Stage)(table.getScene().getWindow())).setMaximized(true);
@@ -360,13 +387,13 @@ User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
     }
 
     @FXML
-    void find(ActionEvent event) throws SQLException {
+    void find(ActionEvent event) throws SQLException {  //кнопка фильтра
 
         data = FXCollections.observableArrayList();
         try {
             rs = conn.createStatement().executeQuery("SELECT * FROM nd_database.table");
             while (rs.next()) {
-                data.add(new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
+                data.add(new DBentity(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
                         rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getString(15), rs.getString(16)));
             }
         }catch (SQLException e){
@@ -404,7 +431,7 @@ User us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
             data.removeIf(x -> !x.getDataSdachi().equals(a151.getText()));}
         if (!a161.getText().equals("")){
             data.removeIf(x -> !x.getOtvetLico().equals(a161.getText()));}
-         table();
+        table();
             table.setItems(null);
             table.setItems(data);
             table.setEditable(true);

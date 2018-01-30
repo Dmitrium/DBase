@@ -8,10 +8,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 
-public class Window1 {
+public class SecondWindow {
 
-    public Window1() throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/win1.fxml"));
+    public SecondWindow() throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/secondWindow.fxml"));
         Parent load = loader.load();
         Stage primaryStage = new Stage();
         primaryStage.initStyle(StageStyle.TRANSPARENT);
@@ -19,6 +19,5 @@ public class Window1 {
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
 }

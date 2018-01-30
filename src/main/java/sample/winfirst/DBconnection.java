@@ -4,9 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * Created by d.zharenkov on 27.12.2017.
- */
+
+//класс для подключения к базе данных
+
+
 public class DBconnection {
     String user;
     String password;
