@@ -76,17 +76,12 @@ public class FirstWindowController implements Initializable{
 System.exit(0);
     }
     @FXML
-    void connect(MouseEvent event) {             //кнопка подключения к БД
-        try {
+    void connect(MouseEvent event) throws Exception {             //кнопка подключения к БД
+
             dc = new DBconnection(txtfield11.getText(),txtfield1.getText());
             conn = dc.Connect();
                 ((Stage) txtfield1.getScene().getWindow()).close();
                     new SecondWindow();
-                } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Content here", ButtonType.OK);
-            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-            alert.show();
-                }
     }
 
     @Override

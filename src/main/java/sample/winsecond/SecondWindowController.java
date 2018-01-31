@@ -15,6 +15,7 @@ import javafx.scene.image.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import sample.winfirst.DBentity;
 import java.awt.*;
@@ -25,6 +26,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
+
 import static sample.winfirst.FirstWindowController.conn;
 
 public class SecondWindowController implements Initializable {
@@ -240,17 +243,19 @@ public class SecondWindowController implements Initializable {
     static Desktop desk;
     static DBentity forchange;
     static boolean t = false;
+    double initialX;
+    double initialY;
+
 
     @FXML
-    void moved(MouseEvent event) {
-        double pX = event.getX();
-        double pY = event.getY();
-        System.out.println(pX +" "+pY);
+    void mousePressed(MouseEvent event) {
+        initialX = event.getSceneX();
+        initialY = event.getSceneY();
     }
     @FXML
-    void move(MouseEvent event) {
-double pX = event.getX();
-double pY = event.getY();
+    void mouseDragged(MouseEvent event) {
+        blackPane.getScene().getWindow().setX( event.getScreenX() - initialX);
+        blackPane.getScene().getWindow().setY( event.getScreenY() - initialY);
     }
     @FXML
     void buttonGUID(ActionEvent event) throws SQLException {          //Поиск по GUID
@@ -270,7 +275,7 @@ ObservableList<CharSequence> str = textfieldGUID.getParagraphs();
         }
     }
     @FXML
-    void delete(ActionEvent event) throws SQLException {     //кнопка удалить запись
+    void delete(ActionEvent event) throws SQLException {           //кнопка удалить запись
 ObservableList<DBentity> pr, all;
 all = table.getItems();
 pr = table.getSelectionModel().getSelectedItems();
@@ -285,7 +290,7 @@ DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex())
     }
 
     @FXML
-    void change(ActionEvent event) throws SQLException {     //кнопка изменить запись
+    void change(ActionEvent event) throws SQLException {           //кнопка изменить запись
         statement = conn.createStatement();
         String ch = "UPDATE nd_database.table SET Год = '"+aaa111.getText()+"', GUID = '"+a211.getText()+"', Ф = '"+a311.getText()+"', П = '"+a411.getText()+"', Маг = '"+a511.getText()+"', Начало = '"+a611.getText()+"', Конец = '"+a711.getText()+"', Подучастки = '"+a811.getText()+"', Диаметр = '"+a911.getText()+"', Длина = '"+
                 a1011.getText()+"', `Год ввода в эксплуатацию/перекладка` = '"+a1111.getText()+"', Прокладка = '"+a1211.getText()+"', Состояние = '"+a1311.getText()+"', Примечание = '"+a1411.getText()+
@@ -296,7 +301,7 @@ DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex())
     }
 
     @FXML
-    void add(ActionEvent event) throws SQLException {     //кнопка добавления записи
+    void add(ActionEvent event) throws SQLException {           //кнопка добавления записи
         statement = conn.createStatement();
         String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getText()+"','"+a3.getText()+"','"+a4.getText()+"','"+a5.getText()+"','"+a6.getText()+"','"+a7.getText()+"','"+a8.getText()+"','"+a9.getText()+"','"+a10.getText()+"','"+a11.getText()+"','"+a12.getText()+"','"+a13.getText()+"','"+a14.getText()+"','"+a15.getText()+"','"+a16.getText()+"');";
         statement.executeUpdate(ex);
@@ -319,7 +324,25 @@ DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex())
         table.setItems(data);
     }
 
-
+    @FXML
+    void clearfilter(MouseEvent event) {
+        aa11.clear();
+        a21.clear();
+        a31.clear();
+        a41.clear();
+        a51.clear();
+        a61.clear();
+        a71.clear();
+        a81.clear();
+        a91.clear();
+        a101.clear();
+        a111.clear();
+        a121.clear();
+        a131.clear();
+        a141.clear();
+        a151.clear();
+        a161.clear();
+    }
 
     @FXML
     void opendir(ActionEvent event) throws SQLException, IOException {          //открытие папки
@@ -327,13 +350,17 @@ DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex())
         DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
         File fi;
         desk = Desktop.getDesktop();
+        try{
         if(us.getMagistral()!=("")){
         fi = new File("\\\\pl7-bkp-03\\Общие отдела ДТ\\_РАБОТА\\"+us.getYear()+"\\_НД\\1. Проекты\\3. ПАО МОЭК, г. Москва\\4. Рабочие материалы\\3. Обработка данных\\Филиал №"+us.getFilial()+"\\Предприятие №"+us.getPredpr()+"\\Магистраль "+us.getMagistral());
         desk.open(fi);
         } else {
             fi = new File("\\\\pl7-bkp-03\\Общие отдела ДТ\\_РАБОТА\\"+us.getYear()+"\\_НД\\1. Проекты\\3. ПАО МОЭК, г. Москва\\4. Рабочие материалы\\3. Обработка данных\\Филиал №"+us.getFilial()+"\\Предприятие №"+us.getPredpr());
             desk.open(fi);
-        }
+        }}catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Ошибочка! Неверное название папки", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.show();}
     }
     @FXML
     void minimize(MouseEvent event) {      //свернуть окно
@@ -397,48 +424,78 @@ DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex())
                         rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getString(15), rs.getString(16)));
             }
         }catch (SQLException e){
-            System.out.println(e);
-        }
-        if (!aa11.getText().equals("")){
-            data.removeIf(x -> !x.getYear().equals(aa11.getText()));}
-        if (!a21.getText().equals("")){
-            data.removeIf(x -> !x.getGUID().equals(a21.getText()));}
-        if (!a31.getText().equals("")){
-            data.removeIf(x -> !x.getFilial().equals(a31.getText()));}
-        if (!a41.getText().equals("")){
-            data.removeIf(x -> !x.getPredpr().equals(a41.getText()));}
-        if (!a51.getText().equals("")){
-            data.removeIf(x -> !x.getMagistral().equals(a51.getText()));}
-        if (!a61.getText().equals("")){
-            data.removeIf(x -> !x.getBegin().equals(a61.getText()));}
-        if (!a71.getText().equals("")){
-            data.removeIf(x -> !x.getEnd().equals(a71.getText()));}
-        if (!a81.getText().equals("")){
-            data.removeIf(x -> !x.getPoduchastok().equals(a81.getText()));}
-        if (!a91.getText().equals("")){
-            data.removeIf(x -> !x.getDiametr().equals(a91.getText()));}
-        if (!a101.getText().equals("")){
-            data.removeIf(x -> !x.getLength().equals(a101.getText()));}
-        if (!a111.getText().equals("")){
-            data.removeIf(x -> !x.getYearOFekspluat().equals(a111.getText()));}
-        if (!a121.getText().equals("")){
-            data.removeIf(x -> !x.getProkladka().equals(a121.getText()));}
-        if (!a131.getText().equals("")){
-            data.removeIf(x -> !x.getStatus().equals(a131.getText()));}
-        if (!a141.getText().equals("")){
-            data.removeIf(x -> !x.getPrimechanie().equals(a141.getText()));}
-        if (!a151.getText().equals("")){
-            data.removeIf(x -> !x.getDataSdachi().equals(a151.getText()));}
-        if (!a161.getText().equals("")){
-            data.removeIf(x -> !x.getOtvetLico().equals(a161.getText()));}
-        table();
+            System.out.println(e);}
+
+            if (!aa11.getText().equals("")){
+                String REGEX = aa11.getText();
+                Pattern p = Pattern.compile(REGEX);
+                data.removeIf(x -> !p.matcher(x.getYear()).find());
+            }
+            if (!a21.getText().equals("")){
+                String REGEX = a21.getText();
+                Pattern p = Pattern.compile(REGEX);
+                data.removeIf(x -> !p.matcher(x.getGUID()).find());}
+            if (!a31.getText().equals("")){
+                String REGEX = a31.getText();
+                Pattern p = Pattern.compile(REGEX);
+                data.removeIf(x -> !p.matcher(x.getFilial()).find());}
+            if (!a41.getText().equals("")){
+                String REGEX = a41.getText();
+                Pattern p = Pattern.compile(REGEX);
+                data.removeIf(x -> !p.matcher(x.getPredpr()).find());}
+            if (!a51.getText().equals("")){
+                String REGEX = a51.getText();
+                Pattern p = Pattern.compile(REGEX);
+                data.removeIf(x -> !p.matcher(x.getMagistral()).find());}
+            if (!a61.getText().equals("")){
+                String REGEX = a61.getText();
+                Pattern p = Pattern.compile(REGEX);
+                data.removeIf(x -> !p.matcher(x.getBegin()).find());}
+            if (!a71.getText().equals("")){
+                String REGEX = a71.getText();
+                Pattern p = Pattern.compile(REGEX);
+                data.removeIf(x -> !p.matcher(x.getEnd()).find());}
+            if (!a81.getText().equals("")){
+                String REGEX = a81.getText();
+                Pattern p = Pattern.compile(REGEX);
+                data.removeIf(x -> !p.matcher(x.getPoduchastok()).find());}
+            if (!a91.getText().equals("")){
+                String REGEX = a91.getText();
+                Pattern p = Pattern.compile(REGEX);
+                data.removeIf(x -> !p.matcher(x.getDiametr()).find());}
+            if (!a101.getText().equals("")){
+                String REGEX = a101.getText();
+                Pattern p = Pattern.compile(REGEX);
+                data.removeIf(x -> !p.matcher(x.getLength()).find());}
+            if (!a111.getText().equals("")){
+                String REGEX = a111.getText();
+                Pattern p = Pattern.compile(REGEX);
+                data.removeIf(x -> !p.matcher(x.getYearOFekspluat()).find());}
+            if (!a121.getText().equals("")){
+                String REGEX = a121.getText();
+                Pattern p = Pattern.compile(REGEX);
+                data.removeIf(x -> !p.matcher(x.getProkladka()).find());}
+            if (!a131.getText().equals("")){
+                String REGEX = a131.getText();
+                Pattern p = Pattern.compile(REGEX);
+                data.removeIf(x -> !p.matcher(x.getStatus()).find());}
+            if (!a141.getText().equals("")){
+                String REGEX = a141.getText();
+                Pattern p = Pattern.compile(REGEX);
+                data.removeIf(x -> !p.matcher(x.getPrimechanie()).find());}
+            if (!a151.getText().equals("")){
+                String REGEX = a151.getText();
+                Pattern p = Pattern.compile(REGEX);
+                data.removeIf(x -> !p.matcher(x.getDataSdachi()).find());}
+            if (!a161.getText().equals("")){
+                String REGEX = a161.getText();
+                Pattern p = Pattern.compile(REGEX);
+                data.removeIf(x -> !p.matcher(x.getOtvetLico()).find());}
+            table();
             table.setItems(null);
             table.setItems(data);
             table.setEditable(true);
     }
-
-
-
 
     public void table(){
         TableColumn[] tarray = new TableColumn[]{t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16};
@@ -464,6 +521,22 @@ DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex())
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        data = FXCollections.observableArrayList();
+        try {
+            rs = conn.createStatement().executeQuery("SELECT * FROM nd_database.table");
+            while (rs.next()) {
+                data.add(new DBentity(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getString(15), rs.getString(16)));
+            }
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        table();
+        table.setItems(null);
+        table.setItems(data);
+
+
+
         table.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent t) {

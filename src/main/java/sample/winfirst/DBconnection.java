@@ -1,5 +1,6 @@
 package sample.winfirst;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,7 +9,7 @@ import java.sql.SQLException;
 //класс для подключения к базе данных
 
 
-public class DBconnection {
+public class DBconnection{
     String user;
     String password;
     public DBconnection(String u, String p){
@@ -19,16 +20,18 @@ public class DBconnection {
 
 
     public Connection Connect(){
-        try{
+
         String url = "jdbc:mysql://localhost:3306/nd_database?useSSL=false";
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection conn = DriverManager.getConnection(url, user, password);
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        }
+        try{
+            Connection conn = DriverManager.getConnection(url, user, password);
         return conn;
-
-
-
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+                System.out.println(e);
         }
         return null;
     }
