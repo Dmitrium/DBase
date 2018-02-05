@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 
-public class SecondWindow {
+public class SecondWindow {             //класс второго окна
 
     public SecondWindow() throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/secondWindow.fxml"));

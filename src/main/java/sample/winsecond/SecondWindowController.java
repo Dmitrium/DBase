@@ -16,18 +16,25 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.winfirst.DBentity;
 import java.awt.*;
 import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.nio.file.Files.exists;
+import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 import static sample.winfirst.FirstWindowController.conn;
 
 public class SecondWindowController implements Initializable {
@@ -245,7 +252,8 @@ public class SecondWindowController implements Initializable {
     static boolean t = false;
     double initialX;
     double initialY;
-
+    File file;
+    File[] listfiles;
 
     @FXML
     void mousePressed(MouseEvent event) {
@@ -269,7 +277,7 @@ ObservableList<CharSequence> str = textfieldGUID.getParagraphs();
                 data.add(new DBentity(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
                         rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getString(15), rs.getString(16)));
             }
-        table();
+            tableInit();
         table.setItems(null);
         table.setItems(data);
         }
@@ -319,7 +327,7 @@ DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex())
         }catch (SQLException e){
             System.out.println(e);
         }
-         table();
+        tableInit();
         table.setItems(null);
         table.setItems(data);
     }
@@ -348,20 +356,34 @@ DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex())
     void opendir(ActionEvent event) throws SQLException, IOException {          //открытие папки
         statement = conn.createStatement();
         DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
-        File fi;
         desk = Desktop.getDesktop();
+        Pattern p1 = Pattern.compile(us.getFilial()+"$");
+        Pattern p2 = Pattern.compile(us.getPredpr()+"$");
         try{
-        if(us.getMagistral()!=("")){
-        fi = new File("\\\\pl7-bkp-03\\Общие отдела ДТ\\_РАБОТА\\"+us.getYear()+"\\_НД\\1. Проекты\\3. ПАО МОЭК, г. Москва\\4. Рабочие материалы\\3. Обработка данных\\Филиал №"+us.getFilial()+"\\Предприятие №"+us.getPredpr()+"\\Магистраль "+us.getMagistral());
-        desk.open(fi);
-        } else {
-            fi = new File("\\\\pl7-bkp-03\\Общие отдела ДТ\\_РАБОТА\\"+us.getYear()+"\\_НД\\1. Проекты\\3. ПАО МОЭК, г. Москва\\4. Рабочие материалы\\3. Обработка данных\\Филиал №"+us.getFilial()+"\\Предприятие №"+us.getPredpr());
-            desk.open(fi);
-        }}catch (Exception e){
+        file = new File("\\\\pl7-bkp-03\\Общие отдела ДТ\\_РАБОТА\\АРХИВ_НД_МОЭК\\"+us.getYear()); //"\\Филиал №"+us.getFilial()+"\\Предприятие №"+us.getPredpr()+"\\Магистраль "+us.getMagistral());
+        listfiles = file.listFiles();
+        for(int i=0; i<listfiles.length; i++) {
+            if (listfiles[i].isDirectory()) {
+                Matcher m1 = p1.matcher(listfiles[i].getName());
+                if (m1.find()) {
+                    listfiles = listfiles[i].listFiles();
+                    for (int j = 0; j < listfiles.length; j++) {
+                        if (listfiles[j].isDirectory()) {
+                            Matcher m2 = p2.matcher(listfiles[j].getName());
+                            if (m2.find()) {
+                                desk.open(listfiles[j]);}
+                        }
+                    }
+                }
+            }
+        }
+        } catch(Exception e){
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Ошибочка! Неверное название папки", ButtonType.OK);
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.show();}
     }
+
+
     @FXML
     void minimize(MouseEvent event) {      //свернуть окно
         ((Stage)(table.getScene().getWindow())).setIconified(true);
@@ -491,13 +513,13 @@ DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex())
                 String REGEX = a161.getText();
                 Pattern p = Pattern.compile(REGEX);
                 data.removeIf(x -> !p.matcher(x.getOtvetLico()).find());}
-            table();
+        tableInit();
             table.setItems(null);
             table.setItems(data);
             table.setEditable(true);
     }
 
-    public void table(){
+    public void tableInit(){               //просто метод инициализирующий столбцы
         TableColumn[] tarray = new TableColumn[]{t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16};
         for (int i=0; i<16; i++)
             tarray[i].setCellFactory(TextFieldTableCell.forTableColumn());
@@ -521,6 +543,7 @@ DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex())
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try{                    //бд сразу выводится в таблицу при открытии окна
         data = FXCollections.observableArrayList();
         try {
             rs = conn.createStatement().executeQuery("SELECT * FROM nd_database.table");
@@ -531,11 +554,16 @@ DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex())
         }catch (SQLException e){
             System.out.println(e);
         }
-        table();
+            tableInit();
         table.setItems(null);
-        table.setItems(data);
-
-
+        table.setItems(data);} catch (Exception e){                //окно ошибки
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Ошибочка! Неверные Логин или Пароль", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.setTitle("Ошибка подключения к базе данных");
+            alert.initModality(Modality.APPLICATION_MODAL);
+            alert.showAndWait();
+            System.exit(0);
+        }
 
         table.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override

@@ -10,7 +10,7 @@ import javafx.stage.StageStyle;
 
 
 
-public class Main extends Application {
+public class Main extends Application {             //главный класс/ класс первого окна
 
     @Override
     public void start(Stage primaryStage) throws Exception{
