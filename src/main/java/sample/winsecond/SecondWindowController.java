@@ -22,9 +22,6 @@ import sample.winfirst.DBentity;
 import java.awt.*;
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,8 +30,6 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.nio.file.Files.exists;
-import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 import static sample.winfirst.FirstWindowController.conn;
 
 public class SecondWindowController implements Initializable {
@@ -252,16 +247,16 @@ public class SecondWindowController implements Initializable {
     static boolean t = false;
     double initialX;
     double initialY;
-    File file;
-    File[] listfiles;
+    static File file;
+    static File[] listfiles;
 
     @FXML
-    void mousePressed(MouseEvent event) {
+    void mousePressed(MouseEvent event) {       //определение координат окна. Используется для mouseDragged
         initialX = event.getSceneX();
         initialY = event.getSceneY();
     }
     @FXML
-    void mouseDragged(MouseEvent event) {
+    void mouseDragged(MouseEvent event) {      //перемещение окна
         blackPane.getScene().getWindow().setX( event.getScreenX() - initialX);
         blackPane.getScene().getWindow().setY( event.getScreenY() - initialY);
     }
@@ -357,32 +352,38 @@ DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex())
         statement = conn.createStatement();
         DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex());
         desk = Desktop.getDesktop();
+        ArrayList list = new ArrayList<Pattern>();
         Pattern p1 = Pattern.compile(us.getFilial()+"$");
         Pattern p2 = Pattern.compile(us.getPredpr()+"$");
-        try{
-        file = new File("\\\\pl7-bkp-03\\Общие отдела ДТ\\_РАБОТА\\АРХИВ_НД_МОЭК\\"+us.getYear()); //"\\Филиал №"+us.getFilial()+"\\Предприятие №"+us.getPredpr()+"\\Магистраль "+us.getMagistral());
-        listfiles = file.listFiles();
-        for(int i=0; i<listfiles.length; i++) {
-            if (listfiles[i].isDirectory()) {
-                Matcher m1 = p1.matcher(listfiles[i].getName());
-                if (m1.find()) {
-                    listfiles = listfiles[i].listFiles();
-                    for (int j = 0; j < listfiles.length; j++) {
-                        if (listfiles[j].isDirectory()) {
-                            Matcher m2 = p2.matcher(listfiles[j].getName());
-                            if (m2.find()) {
-                                desk.open(listfiles[j]);}
-                        }
-                    }
-                }
-            }
+        Pattern p3 = Pattern.compile("\\s"+us.getMagistral()+"$");
+        Pattern p4 = Pattern.compile(us.getBegin());
+        list.add(p1);
+        list.add(p2);
+        list.add(p3);
+        list.add(p4);
+        file = new File("\\\\pl7-bkp-03\\Общие отдела ДТ\\_РАБОТА\\АРХИВ_НД_МОЭК\\"+us.getYear());
+        for (int i=0; i<list.size(); i++){
+            regexOpenDir((Pattern) list.get(i));
         }
+        try{
+            desk.open(file);
         } catch(Exception e){
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Ошибочка! Неверное название папки", ButtonType.OK);
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.show();}
     }
 
+    void regexOpenDir(Pattern p){
+        listfiles = file.listFiles();
+        for(int i=0; i<listfiles.length; i++){
+            if (listfiles[i].isDirectory()) {
+                Matcher m1 = p.matcher(listfiles[i].getName());
+                if (m1.find()){
+                    file = listfiles[i];
+                }
+            }
+        }
+    }
 
     @FXML
     void minimize(MouseEvent event) {      //свернуть окно
@@ -437,7 +438,6 @@ DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex())
 
     @FXML
     void find(ActionEvent event) throws SQLException {  //кнопка фильтра
-
         data = FXCollections.observableArrayList();
         try {
             rs = conn.createStatement().executeQuery("SELECT * FROM nd_database.table");
