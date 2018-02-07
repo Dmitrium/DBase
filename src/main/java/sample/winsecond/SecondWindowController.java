@@ -18,6 +18,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import sample.winfirst.DBentity;
 import java.awt.*;
 import java.io.*;
@@ -26,6 +30,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -384,7 +389,6 @@ DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex())
             }
         }
     }
-
     @FXML
     void minimize(MouseEvent event) {      //свернуть окно
         ((Stage)(table.getScene().getWindow())).setIconified(true);
@@ -446,7 +450,8 @@ DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex())
                         rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getString(15), rs.getString(16)));
             }
         }catch (SQLException e){
-            System.out.println(e);}
+            System.out.println(e);
+        }
 
             if (!aa11.getText().equals("")){
                 String REGEX = aa11.getText();

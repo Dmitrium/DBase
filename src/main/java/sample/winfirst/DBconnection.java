@@ -1,9 +1,13 @@
 package sample.winfirst;
 
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 
 //класс для подключения к базе данных
@@ -19,9 +23,14 @@ public class DBconnection{
 
 
 
-    public Connection Connect(){
-
-        String url = "jdbc:mysql://localhost:3306/nd_database?useSSL=false";
+    public Connection Connect() throws FileNotFoundException {
+        Properties prop = new Properties();
+        try {
+            prop.load(new FileInputStream("src\\main\\resources\\config.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String url = prop.getProperty("URL");
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
