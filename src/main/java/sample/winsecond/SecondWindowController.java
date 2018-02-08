@@ -254,6 +254,34 @@ public class SecondWindowController implements Initializable {
     double initialY;
     static File file;
     static File[] listfiles;
+    Properties property = new Properties();
+    @FXML
+    void backup(ActionEvent event) {    //Бэкап базы данных
+        String dbUserName="root";
+        String dbPassword="root";
+        String dbName="nd_database";
+        String path=property.getProperty("pathToDump");
+        String executeCmd = property.getProperty("mysqldumpPath")+" -u " + dbUserName + " -p" + dbPassword + " --add-drop-database -B " + dbName + " -r " + path;
+        Process runtimeProcess;
+        try
+        {
+            System.out.println(executeCmd);//this out put works in mysql shell
+            runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+            int processComplete = runtimeProcess.waitFor();
+
+            if (processComplete == 0)
+            {
+                System.out.println("Backup created successfully");
+            }
+            else
+            {
+                System.out.println("Could not create the backup");
+            }
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+    }
 
     @FXML
     void mousePressed(MouseEvent event) {       //определение координат окна. Используется для mouseDragged
@@ -595,6 +623,12 @@ DBentity us = table.getItems().get(table.getSelectionModel().getSelectedIndex())
         );
      table.getSelectionModel().setCellSelectionEnabled(true);
 
+
+        try {
+            property.load(new FileInputStream("src\\main\\resources\\config.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

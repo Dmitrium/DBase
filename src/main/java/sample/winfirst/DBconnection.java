@@ -30,7 +30,7 @@ public class DBconnection{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String url = prop.getProperty("URL");
+        String url = prop.getProperty("URLofDB");
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {

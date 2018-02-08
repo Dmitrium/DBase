@@ -147,5 +147,6 @@
             </ImageView>
          </children></AnchorPane>
       <Button layoutX="302.0" layoutY="36.0" mnemonicParsing="false" onAction="#buttonGUID" prefHeight="99.0" prefWidth="64.0" style="-fx-background-color: #333333;" text="Поиск" textFill="WHITE" />
+      <Button layoutX="1114.0" layoutY="36.0" mnemonicParsing="false" onAction="#backup" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: #333333; -fx-background-radius: 20;" text="Backup базы" textFill="WHITE" />
    </children>
 </AnchorPane>
