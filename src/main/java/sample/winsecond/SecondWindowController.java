@@ -339,30 +339,19 @@ public class SecondWindowController implements Initializable {
                 forchange.getLength()+"' AND `Год ввода в эксплуатацию/перекладка` = '"+forchange.getYearOFekspluat()+"' AND Прокладка = '"+forchange.getProkladka()+"' AND Состояние = '"+forchange.getStatus()+"' AND Примечание = '"+forchange.getPrimechanie()+
                 "' AND `Дата сдачи` = '"+forchange.getDataSdachi()+"' AND `Ответственное лицо` = '"+forchange.getOtvetLico()+"';";
         statement.executeUpdate(ch);
+        statement.close();
     }
     @FXML
-    void addGUIDs(ActionEvent event) throws SQLException {           //кнопка добавления записи
+    void addGUIDs(ActionEvent event) throws SQLException {           //кнопка добавления GUID
         ObservableList<CharSequence> str = textfieldGUID.getParagraphs();
         data = FXCollections.observableArrayList();
         statement = conn.createStatement();
         for (CharSequence s: str) {
             System.out.println(s);
-            String ex = "INSERT INTO nd_database.table(GUID) values('"+s.toString()+"');";
+            String ex = "INSERT INTO nd_database.table values('','"+s.toString()+"','','','','','','','','','','','','','','');";
             statement.executeUpdate(ex);
-            rs = conn.createStatement().executeQuery("SELECT * FROM nd_database.table WHERE GUID='"+s.toString()+"'");
-            while (rs.next()) {
-                data.add(new DBentity(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
-                        rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getString(15), rs.getString(16)));
-            }
         }
-        tableInit();
-        table.setItems(null);
-        table.setItems(data);
-
-
-
-
-
+        statement.close();
     }
     @FXML
     void add(ActionEvent event) throws SQLException {           //кнопка добавления записи
