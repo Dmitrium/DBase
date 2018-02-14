@@ -3,6 +3,9 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
@@ -15,7 +18,7 @@
 
 <AnchorPane prefHeight="740.0" prefWidth="1413.0" style="-fx-background-color: #003D9F;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.winsecond.SecondWindowController">
    <children>
-      <TextArea fx:id="textfieldGUID" layoutX="6.0" layoutY="36.0" prefHeight="99.0" prefWidth="296.0" promptText="GUID" AnchorPane.topAnchor="36.0" />
+      <TextArea fx:id="textfieldGUID" layoutX="6.0" layoutY="36.0" prefHeight="100.0" prefWidth="296.0" promptText="GUID" AnchorPane.topAnchor="36.0" />
       <TableView fx:id="table" accessibleRole="BUTTON" editable="true" layoutX="50.0" layoutY="321.0" prefHeight="212.0" prefWidth="1224.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="321.0">
         <columns>
             <TableColumn fx:id="t1" maxWidth="1500.0" prefWidth="75.0" text="Год" />
@@ -145,8 +148,17 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
+            <MenuBar layoutY="-2.0" maxHeight="20.0" prefHeight="20.0" style="-fx-background-color: #ffffff;">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#backup" text="Backup базы данных" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
          </children></AnchorPane>
-      <Button layoutX="302.0" layoutY="36.0" mnemonicParsing="false" onAction="#buttonGUID" prefHeight="99.0" prefWidth="64.0" style="-fx-background-color: #333333;" text="Поиск" textFill="WHITE" />
-      <Button layoutX="1114.0" layoutY="36.0" mnemonicParsing="false" onAction="#backup" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: #333333; -fx-background-radius: 20;" text="Backup базы" textFill="WHITE" />
+      <Button layoutX="303.0" layoutY="35.0" mnemonicParsing="false" onAction="#buttonGUID" prefHeight="49.0" prefWidth="80.0" style="-fx-background-color: #333333;" text="Поиск" textFill="WHITE" AnchorPane.topAnchor="35.0" />
+      <Button layoutX="303.0" layoutY="86.0" mnemonicParsing="false" onAction="#addGUIDs" prefHeight="49.0" prefWidth="80.0" style="-fx-background-color: #ffffff;" text="Добавить" AnchorPane.topAnchor="86.0" />
    </children>
 </AnchorPane>

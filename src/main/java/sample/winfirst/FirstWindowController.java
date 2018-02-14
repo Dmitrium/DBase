@@ -9,6 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import sample.winsecond.SecondWindow;
@@ -34,8 +35,12 @@ public class FirstWindowController implements Initializable{
     private ImageView connn;
     @FXML
     private TextField txtfield11;
+    @FXML
+    private AnchorPane aPane;
     public DBconnection dc;
     public static Connection conn;
+    double initialX;
+    double initialY;
 
     @FXML
     void minimize(MouseEvent event) {         //свернуть окно
@@ -84,6 +89,16 @@ System.exit(0);
                     new SecondWindow();
     }
 
+    @FXML
+    void mousePressed(MouseEvent event) {       //определение координат окна. Используется для mouseDragged
+        initialX = event.getSceneX();
+        initialY = event.getSceneY();
+    }
+    @FXML
+    void mouseDragged(MouseEvent event) {      //перемещение окна
+        aPane.getScene().getWindow().setX( event.getScreenX() - initialX);
+        aPane.getScene().getWindow().setY( event.getScreenY() - initialY);
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
