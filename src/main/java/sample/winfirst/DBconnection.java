@@ -26,7 +26,7 @@ public class DBconnection{
     public Connection Connect() throws FileNotFoundException {
         Properties prop = new Properties();
         try {
-            prop.load(new FileInputStream("src\\main\\resources\\config.properties"));
+            prop.load(new FileInputStream("resources\\config.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -8,10 +8,6 @@
     <artifactId>DBase</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    </properties>
     <build>
         <plugins>
             <plugin>
@@ -94,6 +90,9 @@
                                     <filtering>true</filtering>
                                     <includes>
                                         <include>**/*.properties</include>
+                                        <encoding>ISO8859-1</encoding>
+                                        <include>**/*.txt</include>
+                                        <encoding>ISO8859-1</encoding>
                                     </includes>
                                 </resource>
                             </resources>

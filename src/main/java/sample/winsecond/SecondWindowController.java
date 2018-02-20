@@ -260,15 +260,14 @@ public class SecondWindowController implements Initializable {
     Pattern p3;
     Pattern p4;
     private static String forReplace;
+
     @FXML
     void backup(ActionEvent event) throws IOException {    //Бэкап базы данных
         String dbUserName="root";
         String dbPassword="root";
         String dbName="nd_database";
-        String path=property.getProperty("pathToDump");
-        InputStream stream = new FileInputStream("src\\main\\resources\\config.properties");
-        property.load(new InputStreamReader(stream,"UTF-8"));
-        String executeCmd = property.getProperty("mysqldumpPath")+" -u " + dbUserName + " -p" + dbPassword + " --add-drop-database -B " + dbName + " -r " + path;
+        String path=new String(property.getProperty("pathToDump").getBytes("ISO8859-1"));
+        String executeCmd = property.getProperty("mysqldumpPath")+" -u" + dbUserName + " -p" + dbPassword + " --add-drop-database -B " + dbName + " -r" + path;
         Process runtimeProcess;
         try
         {
@@ -359,7 +358,6 @@ public class SecondWindowController implements Initializable {
         String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getText()+"','"+a3.getText()+"','"+a4.getText()+"','"+a5.getText()+"','"+a6.getText()+"','"+a7.getText()+"','"+a8.getText()+"','"+a9.getText()+"','"+a10.getText()+"','"+a11.getText()+"','"+a12.getText()+"','"+a13.getText()+"','"+a14.getText()+"','"+a15.getText()+"','"+a16.getText()+"');";
         statement.executeUpdate(ex);
     }
-
     @FXML
     void press(ActionEvent event) throws SQLException {            //кнопка вывести всю базу данных
         data = FXCollections.observableArrayList();
@@ -376,7 +374,6 @@ public class SecondWindowController implements Initializable {
         table.setItems(null);
         table.setItems(data);
     }
-
     @FXML
     void clearfilter(MouseEvent event) {
         aa11.clear();
@@ -396,7 +393,6 @@ public class SecondWindowController implements Initializable {
         a151.clear();
         a161.clear();
     }
-
     @FXML
     void opendir(ActionEvent event) throws SQLException, IOException {          //открытие папки
         statement = conn.createStatement();
@@ -406,13 +402,13 @@ public class SecondWindowController implements Initializable {
         p1 = Pattern.compile(us.getFilial()+"$");
         p2 = Pattern.compile(us.getPredpr()+"$");
         p3 = Pattern.compile("\\s"+us.getMagistral()+"$");
-        p4 = Pattern.compile("(^)"+"("+"("+us.getBegin().replace("/","[.]")+"[ - ]"+us.getEnd().replace("/","[.]")+")|"+us.getBegin().replace("к","").replace("/","[.]")+"|"+us.getBegin().replace("/","[.]")+")"+"($|\\W)");
+        p4 = Pattern.compile("(^)"+"("+"("+us.getBegin().replace("/","[.]")+"[ - ]"+us.getEnd().replace("/","[.]")+")|"+us.getBegin().replace("к","").replace("/","[.]")+"|"+us.getBegin().replace("/","[.]")+"|"+us.getBegin().replace("кам. ","").replace("/","[.]")+")"+"($|(\\s[-]))");
         list.add(p1);
         list.add(p2);
         list.add(p3);
         list.add(p4);
         try{
-        file = new File("\\\\pl7-bkp-03\\Общие отдела ДТ\\_РАБОТА\\АРХИВ_НД_МОЭК\\"+us.getYear());
+        file = new File(new String(property.getProperty("pathToArHive").getBytes("ISO8859-1"))+us.getYear());
         for (int i=0; i<list.size(); i++){
             regexOpenDir((Pattern) list.get(i));
         }
@@ -485,7 +481,6 @@ public class SecondWindowController implements Initializable {
         t=false;
         }
     }
-
     @FXML
     void find(ActionEvent event) throws SQLException {  //кнопка фильтра
         data = FXCollections.observableArrayList();
@@ -641,11 +636,10 @@ public class SecondWindowController implements Initializable {
         );
         table.getSelectionModel().setCellSelectionEnabled(true);
         try {
-            property.load(new FileInputStream("src\\main\\resources\\config.properties"));
+            property.load(new FileInputStream("resources\\config.properties"));
+            System.out.println(new String(property.getProperty("pathToDump").getBytes("ISO8859-1")));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
 }
