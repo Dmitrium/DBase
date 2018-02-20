@@ -15,7 +15,7 @@ public class SecondWindow {             //класс второго окна
         Parent load = loader.load();
         Stage primaryStage = new Stage();
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Scene scene = new Scene(load, 1399, 800);
+        Scene scene = new Scene(load, 1450, 800);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
         primaryStage.show();

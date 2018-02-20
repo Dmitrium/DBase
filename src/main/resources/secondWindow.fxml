@@ -73,6 +73,11 @@
             <TextField fx:id="a15" prefHeight="25.0" prefWidth="75.0" promptText="Дата сдачи" />
             <TextField fx:id="a16" prefHeight="25.0" prefWidth="107.0" promptText="Ответственное лицо" />
             <Button fx:id="addbut" mnemonicParsing="false" onAction="#add" style="-fx-background-color: #333333; -fx-background-radius: 20;" text="Добавить" textFill="WHITE" />
+            <ImageView fitHeight="15.0" fitWidth="17.0" onMouseClicked="#clearfilterADD" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/refresh-page-option_icon-icons.com_73441.png" />
+               </image>
+            </ImageView>
          </items>
       </ToolBar>
       <ToolBar layoutY="201.0" prefHeight="40.0" prefWidth="1326.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -96,7 +101,7 @@
             <Button fx:id="fnd" mnemonicParsing="false" onAction="#find" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #333333; -fx-background-radius: 20;" text="Фильтр" textFill="WHITE" />
             <ImageView fitHeight="15.0" fitWidth="17.0" onMouseClicked="#clearfilter" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@/icons/refresh-page-option_icon-icons.com_73441.png" />
+                  <Image url="@icons/refresh-page-option_icon-icons.com_73441.png" />
                </image>
             </ImageView>
          </items>
@@ -160,5 +165,10 @@
          </children></AnchorPane>
       <Button layoutX="303.0" layoutY="35.0" mnemonicParsing="false" onAction="#buttonGUID" prefHeight="49.0" prefWidth="80.0" style="-fx-background-color: #333333;" text="Поиск" textFill="WHITE" AnchorPane.topAnchor="35.0" />
       <Button layoutX="303.0" layoutY="86.0" mnemonicParsing="false" onAction="#addGUIDs" prefHeight="49.0" prefWidth="80.0" style="-fx-background-color: #ffffff;" text="Добавить" AnchorPane.topAnchor="86.0" />
+      <ImageView fitHeight="15.0" fitWidth="17.0" layoutX="286.0" layoutY="37.0" onMouseClicked="#clearfilterGUID" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icons/refresh-page-option_icon-icons.com_73441.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

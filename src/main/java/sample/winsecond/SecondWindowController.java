@@ -259,18 +259,19 @@ public class SecondWindowController implements Initializable {
     Pattern p2;
     Pattern p3;
     Pattern p4;
-    private static String forReplace;
+
 
     @FXML
     void backup(ActionEvent event) throws IOException {    //Бэкап базы данных
         String dbUserName="root";
         String dbPassword="root";
         String dbName="nd_database";
+        try
+        {
         String path=new String(property.getProperty("pathToDump").getBytes("ISO8859-1"));
         String executeCmd = property.getProperty("mysqldumpPath")+" -u" + dbUserName + " -p" + dbPassword + " --add-drop-database -B " + dbName + " -r" + path;
         Process runtimeProcess;
-        try
-        {
+
             System.out.println(executeCmd);//this out put works in mysql shell
             runtimeProcess = Runtime.getRuntime().exec(executeCmd);
             int processComplete = runtimeProcess.waitFor();
@@ -285,7 +286,10 @@ public class SecondWindowController implements Initializable {
             }
         } catch (Exception ex)
         {
-            ex.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, String.valueOf(ex), ButtonType.OK);
+            alert.setTitle("Ошибка");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.show();
         }
     }
 
@@ -314,6 +318,7 @@ public class SecondWindowController implements Initializable {
         tableInit();
         table.setItems(null);
         table.setItems(data);
+        rs.close();
     }
     @FXML
     void delete(ActionEvent event) throws SQLException {           //кнопка удалить запись
@@ -351,15 +356,21 @@ public class SecondWindowController implements Initializable {
             statement.executeUpdate(ex);
         }
         statement.close();
+        showDB();
     }
     @FXML
     void add(ActionEvent event) throws SQLException {           //кнопка добавления записи
         statement = conn.createStatement();
         String ex = "INSERT INTO nd_database.table values('"+a1.getText()+"','"+a2.getText()+"','"+a3.getText()+"','"+a4.getText()+"','"+a5.getText()+"','"+a6.getText()+"','"+a7.getText()+"','"+a8.getText()+"','"+a9.getText()+"','"+a10.getText()+"','"+a11.getText()+"','"+a12.getText()+"','"+a13.getText()+"','"+a14.getText()+"','"+a15.getText()+"','"+a16.getText()+"');";
         statement.executeUpdate(ex);
+        statement.close();
+        showDB();
     }
     @FXML
     void press(ActionEvent event) throws SQLException {            //кнопка вывести всю базу данных
+        showDB();
+    }
+    void showDB(){         //показать ДБ
         data = FXCollections.observableArrayList();
         try {
             rs = conn.createStatement().executeQuery("SELECT * FROM nd_database.table");
@@ -373,9 +384,14 @@ public class SecondWindowController implements Initializable {
         tableInit();
         table.setItems(null);
         table.setItems(data);
+        try {
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
-    void clearfilter(MouseEvent event) {
+    void clearfilter(MouseEvent event) {   //очистка фильтра
         aa11.clear();
         a21.clear();
         a31.clear();
@@ -392,6 +408,29 @@ public class SecondWindowController implements Initializable {
         a141.clear();
         a151.clear();
         a161.clear();
+    }
+    @FXML
+    void clearfilterGUID(MouseEvent event) {    //очистка поля поиска и добавления GUID
+        textfieldGUID.clear();
+    }
+    @FXML
+    void clearfilterADD(MouseEvent event) {     //очистка полей добавления
+        a1.clear();
+        a2.clear();
+        a3.clear();
+        a4.clear();
+        a5.clear();
+        a6.clear();
+        a7.clear();
+        a8.clear();
+        a9.clear();
+        a10.clear();
+        a11.clear();
+        a12.clear();
+        a13.clear();
+        a14.clear();
+        a15.clear();
+        a16.clear();
     }
     @FXML
     void opendir(ActionEvent event) throws SQLException, IOException {          //открытие папки
@@ -414,10 +453,11 @@ public class SecondWindowController implements Initializable {
         }
             desk.open(file);
         } catch(Exception e){
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Ошибочка! Неверное название папки", ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.ERROR, String.valueOf(e), ButtonType.OK);
             alert.setTitle("Ошибка в названии папки");
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.show();}
+        statement.close();
     }
 
     void regexOpenDir(Pattern p){
@@ -482,7 +522,7 @@ public class SecondWindowController implements Initializable {
         }
     }
     @FXML
-    void find(ActionEvent event) throws SQLException {  //кнопка фильтра
+    void find(ActionEvent event) throws SQLException {     //кнопка фильтра
         data = FXCollections.observableArrayList();
         try {
             rs = conn.createStatement().executeQuery("SELECT * FROM nd_database.table");
@@ -493,7 +533,6 @@ public class SecondWindowController implements Initializable {
         }catch (SQLException e){
             System.out.println(e);
         }
-
             if (!aa11.getText().equals("")){
                 String REGEX = aa11.getText();
                 Pattern p = Pattern.compile(REGEX);
@@ -563,6 +602,7 @@ public class SecondWindowController implements Initializable {
             table.setItems(null);
             table.setItems(data);
             table.setEditable(true);
+        rs.close();
     }
 
     public void tableInit(){               //просто метод инициализирующий столбцы
@@ -610,7 +650,11 @@ public class SecondWindowController implements Initializable {
             alert.showAndWait();
             System.exit(0);
         }
-
+        try {
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         table.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent t) {
